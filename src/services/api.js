@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const MEDIASTACK_API_KEY = process.env.REACT_APP_MEDIASTACK_API_KEY;
 const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-const GOOGLE_SEARCH_ENGINE_ID = '20bba4a0e3d2142c6'; 
+const GOOGLE_SEARCH_ENGINE_ID = process.env.GOOGLE_SEARCH_ENGINE_ID;
 
 // Fetch YouTube videos
 export const fetchYouTubeVideos = async (searchTerm, pageToken = '') => {
