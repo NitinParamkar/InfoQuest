@@ -33,3 +33,7 @@ GOOGLE_SEARCH_ENGINE_ID=your_google_search_engine_id
 npm start
 ```
 
+### Explore diverse content from YouTube, blogs, articles, and academic papers with an intuitive search engine.
+[click here](https://main--multisearch-web.netlify.app/) to visit Multisearch-website
+
+
