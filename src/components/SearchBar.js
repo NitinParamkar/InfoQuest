@@ -24,7 +24,7 @@ const SearchBar = ({ onSearch, onTypeChange }) => {
         onChange={(e) => setTerm(e.target.value)}
       />
       <select value={searchType} onChange={handleTypeChange}>
-        <option value="youtube">YouTube Videos</option>
+        <option value="youtube">YouTube Search</option>
         <option value="articles">Articles & Blogs</option>
         <option value="academic">Academic Papers</option>
         <option value="googleCustom">Google Search</option>
