@@ -65,7 +65,7 @@ export const fetchYouTubeVideos = async (searchTerm, pageToken = '') => {
 export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
   try {
     // Make API call to Mediastack
-    const response = await axios.get('http://api.mediastack.com/v1/news', {
+    const response = await axios.get('https://api.mediastack.com/v1/news', {
       params: {
         access_key: MEDIASTACK_API_KEY, 
         keywords: searchTerm,
@@ -103,16 +103,16 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
       };
     }
   } catch (error) {
-    
-    console.error('Error fetching articles and blogs:', error.message);
-    throw error; 
+    console.error('Error fetching articles and blogs:', error);
+    console.error('Error details:', error.response ? error.response.data : 'No response data');
+    throw error;
   }
 };
 
 // Fetch academic papers (Placeholder)
 export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 10) => {
   try {
-    const response = await axios.get('http://export.arxiv.org/api/query', {
+    const response = await axios.get('https://export.arxiv.org/api/query', {
       params: {
         search_query: `ti:${searchTerm} OR abs:${searchTerm}`, 
         start,
@@ -144,6 +144,7 @@ export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 10
     };
   } catch (error) {
     console.error('Error fetching academic papers:', error);
+    console.error('Error details:', error.response ? error.response.data : 'No response data');
     throw error;
   }
 };
