@@ -7,6 +7,8 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [searchKey, setSearchKey] = useState(0); 
   const [isLoading, setIsLoading] = useState(true); 
+  const prevSearchTermRef = useRef('');
+  const prevTriggerSearchRef = useRef(false);
 
   // Load Google Custom Search script
   useEffect(() => {
@@ -56,17 +58,25 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
 
   // Trigger search execution when searchTerm or triggerSearch changes
   useEffect(() => {
-    if (isScriptLoaded && searchTerm && triggerSearch) {
-      const element = window.google.search.cse.element.getElement(`gcse-searchresults-only0-${searchKey}`);
-      if (element) {
-        element.execute(searchTerm); 
-        setIsPanelOpen(true); 
-      } else {
-        console.error('Google Custom Search element not found');
+    const executeSearch = () => {
+      if (isScriptLoaded && searchTerm && triggerSearch) {
+        const element = window.google.search.cse.element.getElement(`gcse-searchresults-only0-${searchKey}`);
+        if (element) {
+          element.execute(searchTerm); 
+          setIsPanelOpen(true); 
+          setSearchKey((prevKey) => prevKey + 1);
+        } else {
+          console.error('Google Custom Search element not found');
+        }
       }
-      setSearchKey((prevKey) => prevKey + 1); 
+    };
+
+    if (searchTerm !== prevSearchTermRef.current || triggerSearch !== prevTriggerSearchRef.current) {
+      executeSearch();
+      prevSearchTermRef.current = searchTerm;
+      prevTriggerSearchRef.current = triggerSearch;
     }
-  }, [isScriptLoaded, searchTerm, triggerSearch]);
+  }, [isScriptLoaded, searchTerm, triggerSearch, searchKey]);
 
   const closePanel = () => {
     setIsPanelOpen(false);
