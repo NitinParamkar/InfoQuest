@@ -37,7 +37,7 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
       const scoreB = calculateScore(b.views, b.likes);
       return scoreB - scoreA; // Sort in descending order of score
     }
-    return 0; // For non-YouTube results, maintain the same order
+    return 0; 
   });
 
   const renderResultItem = (result, index) => {

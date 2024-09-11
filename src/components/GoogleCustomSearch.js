@@ -5,8 +5,8 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
   const searchRef = useRef(null);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const [searchKey, setSearchKey] = useState(0); // Unique key to force re-render
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [searchKey, setSearchKey] = useState(0); 
+  const [isLoading, setIsLoading] = useState(true); 
 
   // Load Google Custom Search script
   useEffect(() => {
@@ -17,7 +17,7 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
       script.onload = () => {
         if (window.google && window.google.search) {
           setIsScriptLoaded(true);
-          setIsLoading(false); // Set loading to false when script is loaded
+          setIsLoading(false); 
         }
       };
       document.head.appendChild(script);
@@ -28,18 +28,18 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
       const interval = setInterval(() => {
         if (window.google && window.google.search) {
           setIsScriptLoaded(true);
-          setIsLoading(false); // Stop loading state
-          clearInterval(interval); // Stop checking once script is loaded
+          setIsLoading(false); 
+          clearInterval(interval); 
         }
-      }, 500); // Check every 500ms
+      }, 500);
     };
 
     if (!window.google || !window.google.search) {
       loadGoogleSearchScript();
-      checkGoogleSearchReady(); // Fallback in case onload event fails
+      checkGoogleSearchReady(); 
     } else {
       setIsScriptLoaded(true);
-      setIsLoading(false); // If script is already loaded, stop loading
+      setIsLoading(false); 
     }
   }, []);
 
@@ -47,24 +47,24 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
   useEffect(() => {
     if (isScriptLoaded) {
       window.google.search.cse.element.render({
-        div: `gcse-searchresults-only0-${searchKey}`, // Unique ID for each render
+        div: `gcse-searchresults-only0-${searchKey}`,
         tag: 'searchresults-only',
-        gname: `gcse-searchresults-only0-${searchKey}`, // Unique name for each render
+        gname: `gcse-searchresults-only0-${searchKey}`, 
       });
     }
-  }, [isScriptLoaded, searchKey]); // Re-render search element on key change
+  }, [isScriptLoaded, searchKey]);
 
   // Trigger search execution when searchTerm or triggerSearch changes
   useEffect(() => {
     if (isScriptLoaded && searchTerm && triggerSearch) {
       const element = window.google.search.cse.element.getElement(`gcse-searchresults-only0-${searchKey}`);
       if (element) {
-        element.execute(searchTerm); // Execute the search term
-        setIsPanelOpen(true); // Open sliding panel
+        element.execute(searchTerm); 
+        setIsPanelOpen(true); 
       } else {
         console.error('Google Custom Search element not found');
       }
-      setSearchKey((prevKey) => prevKey + 1); // Increment key to force re-render of search div
+      setSearchKey((prevKey) => prevKey + 1); 
     }
   }, [isScriptLoaded, searchTerm, triggerSearch]);
 

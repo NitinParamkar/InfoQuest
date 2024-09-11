@@ -67,21 +67,18 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
     // Make API call to Mediastack
     const response = await axios.get('http://api.mediastack.com/v1/news', {
       params: {
-        access_key: MEDIASTACK_API_KEY, // Your API key
-        keywords: searchTerm, // Search term for articles/blogs
-        languages: 'en', // Limit to English articles
-        offset, // Pagination offset
-        limit: 10, // Limit results to 10 per request
-        // You can try adding sorting or categories if needed
-        // sort: 'relevance', // Optional: Uncomment for sorting by relevance
-        // categories: 'general,technology,health', // Optional: Uncomment to filter by categories
+        access_key: MEDIASTACK_API_KEY, 
+        keywords: searchTerm,
+        languages: 'en',
+        offset, 
+        limit: 10, 
       },
     });
 
-    // Debug: Log the full response to check if the API is returning any data
+    
     console.log(response.data);
 
-    // Check if the API returned data and process it
+    
     if (response.data && response.data.data) {
       const articles = response.data.data.map(article => ({
         type: 'article',
@@ -89,16 +86,16 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
         description: article.description,
         link: article.url,
         source: article.source,
-        image: article.image || null, // Handle missing image gracefully
+        image: article.image || null, 
         published_at: article.published_at,
       }));
 
       return {
         articles,
-        total: response.data.pagination.total, // Total number of results
+        total: response.data.pagination.total, 
       };
     } else {
-      // Handle the case where no articles are returned
+     
       console.warn('No articles found for the search term:', searchTerm);
       return {
         articles: [],
@@ -106,9 +103,9 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
       };
     }
   } catch (error) {
-    // Handle error cases
+    
     console.error('Error fetching articles and blogs:', error.message);
-    throw error; // Optionally rethrow the error to handle it in your app
+    throw error; 
   }
 };
 
@@ -117,10 +114,10 @@ export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 10
   try {
     const response = await axios.get('http://export.arxiv.org/api/query', {
       params: {
-        search_query: `ti:${searchTerm} OR abs:${searchTerm}`, // Refined query
+        search_query: `ti:${searchTerm} OR abs:${searchTerm}`, 
         start,
         max_results: maxResults,
-        sortBy: 'relevance', // Sort by relevance instead of lastUpdatedDate
+        sortBy: 'relevance', 
         sortOrder: 'descending'
       }
     });
@@ -151,19 +148,19 @@ export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 10
   }
 };
 
-//fetching results from google search
+
 //fetching results from google search without API key
 export const fetchGoogleResults = async (searchTerm, start = 1) => {
   try {
     console.log('Fetching Google results for:', searchTerm);
     const response = await axios.get('https://cse.google.com/cse?', {
       params: {
-        cx: GOOGLE_SEARCH_ENGINE_ID, // Custom Search Engine ID
+        cx: GOOGLE_SEARCH_ENGINE_ID, 
         q: searchTerm,
         start: start,
-        num: 10, // Request maximum number of results
-        sort: 'relevance', // Sort by relevance
-        safe: 'active', // Safe search setting
+        num: 10, 
+        sort: 'relevance', 
+        safe: 'active', 
       },
     });
 
