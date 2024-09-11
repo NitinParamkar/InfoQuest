@@ -1,0 +1,63 @@
+/* SearchBar.css */
+.search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .search-bar input[type="text"],
+  .search-bar select {
+    width: 200px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-grow: 1;
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1em;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-bar button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .search-bar {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .search-bar input[type="text"],
+    .search-bar select,
+    .search-bar button {
+      width: 100%;
+      max-width: 300px;
+      margin: 5px 0;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .search-bar input[type="text"],
+    .search-bar select,
+    .search-bar button {
+      font-size: 0.9em;
+      padding: 8px;
+    }
+  }
