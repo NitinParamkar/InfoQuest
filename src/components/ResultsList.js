@@ -74,16 +74,7 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
             )}
           </div>
         );
-      case 'google':
-        return (
-          <div key={index} className="result-item google" onClick={() => handleCardClick(result)}>
-            {result.image && <img src={result.image} alt={result.title} className="thumbnail" />}
-            <h3 className="title">{result.title}</h3>
-            <p className="snippet">{result.snippet}</p>
-            <a href={result.link} target="_blank" rel="noopener noreferrer">Visit website</a>
-          </div>
-        );
-      default:
+        default:
         return null;
     }
   };
