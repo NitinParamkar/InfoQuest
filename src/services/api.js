@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const MEDIASTACK_API_KEY = process.env.REACT_APP_MEDIASTACK_API_KEY;
 const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-const GOOGLE_SEARCH_ENGINE_ID = process.env.GOOGLE_SEARCH_ENGINE_ID;
 
 // Fetch YouTube videos
 export const fetchYouTubeVideos = async (searchTerm, pageToken = '') => {
@@ -150,45 +149,3 @@ export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 10
 };
 
 
-//fetching results from google search without API key
-export const fetchGoogleResults = async (searchTerm, start = 1) => {
-  try {
-    console.log('Fetching Google results for:', searchTerm);
-    const response = await axios.get('https://cse.google.com/cse?', {
-      params: {
-        cx: GOOGLE_SEARCH_ENGINE_ID, 
-        q: searchTerm,
-        start: start,
-        num: 10, 
-        sort: 'relevance', 
-        safe: 'active', 
-      },
-    });
-
-    console.log('Google API response:', response.data);
-    console.log('Number of items returned:', response.data.items ? response.data.items.length : 0);
-
-    if (!response.data.items || response.data.items.length === 0) {
-      console.warn('No items in Google API response');
-      return { results: [], total: 0 };
-    }
-
-    const results = response.data.items.map(item => ({
-      type: 'google',
-      title: item.title,
-      link: item.link,
-      snippet: item.snippet,
-      image: item.pagemap?.cse_image?.[0]?.src || null,
-    }));
-
-    console.log('Processed Google results:', results);
-
-    return {
-      results,
-      total: parseInt(response.data.searchInformation.totalResults, 10),
-    };
-  } catch (error) {
-    console.error('Error fetching Google search results:', error);
-    throw error;
-  }
-};
