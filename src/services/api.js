@@ -13,7 +13,7 @@ export const fetchYouTubeVideos = async (searchTerm, pageToken = '') => {
         params: {
           q: searchTerm,
           part: 'snippet',
-          maxResults: 10,
+          maxResults: 4,
           pageToken,
           type: 'video',
           key: YOUTUBE_API_KEY,
@@ -70,7 +70,7 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
         keywords: searchTerm,
         languages: 'en',
         offset, 
-        limit: 10, 
+        limit: 4, 
       },
     });
 
@@ -109,7 +109,7 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
 };
 
 // Fetch academic papers (Placeholder)
-export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 10) => {
+export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 4) => {
   try {
     const response = await axios.get('https://export.arxiv.org/api/query', {
       params: {

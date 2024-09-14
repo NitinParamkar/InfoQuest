@@ -18,6 +18,7 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
   };
 
   const truncateText = (text, maxLines) => {
+    if (!text) return '';
     const lines = text.split('\n');
     if (lines.length > maxLines) {
       return lines.slice(0, maxLines).join('\n') + '...';
@@ -30,7 +31,7 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
     return 0.5 * views + 0.5 * likes;
   };
 
-  // Sort results by the calculated score for YouTube results
+  // Sort results by the calculated score for YouTube results and mix other results
   const sortedResults = results.slice().sort((a, b) => {
     if (a.type === 'youtube' && b.type === 'youtube') {
       const scoreA = calculateScore(a.views, a.likes);
@@ -52,29 +53,27 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
           </div>
         );
       case 'article':
-      case 'academic':
-        const content = result.type === 'article' ? result.description : result.summary;
-        const truncatedContent = truncateText(content, 15);
         return (
           <div key={index} className="result-item article" onClick={() => handleCardClick(result)}>
             {result.image && <img src={result.image} alt={result.title} className="thumbnail" />}
             <h3 className="title">{result.title}</h3>
+            <p className="content">{truncateText(result.description, 3)}</p>
+            <p className="source"><strong>Source:</strong> {result.source}</p>
+            <p className="published"><strong>Published:</strong> {new Date(result.published_at).toLocaleString()}</p>
+          </div>
+        );
+      case 'academic':
+        return (
+          <div key={index} className="result-item academic" onClick={() => handleCardClick(result)}>
+            <h3 className="title">{result.title}</h3>
             {result.authors && result.authors.length > 0 && (
               <p className="authors"><strong>Authors: </strong>{result.authors.join(', ')}</p>
             )}
-            <p className="content">{truncatedContent}</p>
-            {result.type === 'article' && (
-              <>
-                <p className="source"><strong>Source:</strong> {result.source}</p>
-                <p className="published"><strong>Published:</strong> {new Date(result.published_at).toLocaleString()}</p>
-              </>
-            )}
-            {result.type === 'academic' && (
-              <p className="published"><strong>Published:</strong> {new Date(result.published).toLocaleString()}</p>
-            )}
+            <p className="content">{truncateText(result.summary, 3)}</p>
+            <p className="published"><strong>Published:</strong> {new Date(result.published).toLocaleString()}</p>
           </div>
         );
-        default:
+      default:
         return null;
     }
   };
@@ -86,9 +85,7 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
   return (
     <div className="results-list">
       {sortedResults.length === 0 ? (
-        <p >
-        No results found
-       </p>      
+        <p>No results found</p>      
       ) : (
         sortedResults.map((result, index) => renderResultItem(result, index))
       )}

@@ -35,24 +35,65 @@ function App() {
 
     try {
       let response;
-      switch (searchType) {
-        case 'youtube':
-          response = await fetchYouTubeVideos(searchTerm);
-          setResults(response.videos);
-          setNextPageToken(response.nextPageToken);
-          break;
-        case 'articles':
-          response = await fetchArticlesAndBlogs(searchTerm);
-          setResults(response.articles);
-          setTotalResults(response.total);
-          break;
-        case 'academic':
-          response = await fetchAcademicPapers(searchTerm);
-          setResults(response.articles);
-          setTotalResults(response.total);
-          break;
-        default:
-          break;
+      if (searchType === 'mixsearch') {
+        console.log('Fetching mixed search results...');
+        let youtubeResults = [];
+        let articlesResults = [];
+        let academicResults = [];
+
+        try {
+          const youtubeResponse = await fetchYouTubeVideos(searchTerm);
+          youtubeResults = youtubeResponse.videos;
+          console.log('YouTube results:', youtubeResults);
+        } catch (error) {
+          console.error('Error fetching YouTube results:', error);
+        }
+
+        try {
+          const articlesResponse = await fetchArticlesAndBlogs(searchTerm);
+          articlesResults = articlesResponse.articles;
+          console.log('Articles results:', articlesResults);
+        } catch (error) {
+          console.error('Error fetching Articles results:', error);
+        }
+
+        try {
+          const academicResponse = await fetchAcademicPapers(searchTerm);
+          academicResults = academicResponse.articles;
+          console.log('Academic results:', academicResults);
+        } catch (error) {
+          console.error('Error fetching Academic results:', error);
+        }
+
+        const mixedResults = [
+          ...youtubeResults,
+          ...articlesResults,
+          ...academicResults
+        ];
+        
+        console.log('Combined mixed results:', mixedResults);
+        setResults(mixedResults);
+        setTotalResults(mixedResults.length);
+      } else {
+        switch (searchType) {
+          case 'youtube':
+            response = await fetchYouTubeVideos(searchTerm);
+            setResults(response.videos);
+            setNextPageToken(response.nextPageToken);
+            break;
+          case 'articles':
+            response = await fetchArticlesAndBlogs(searchTerm);
+            setResults(response.articles);
+            setTotalResults(response.total);
+            break;
+          case 'academic':
+            response = await fetchAcademicPapers(searchTerm);
+            setResults(response.articles);
+            setTotalResults(response.total);
+            break;
+          default:
+            break;
+        }
       }
     } catch (error) {
       console.error('Search failed:', error);
@@ -62,7 +103,7 @@ function App() {
   }, [searchType]);
 
   const handleLoadMore = async () => {
-    if (loading) return;
+    if (loading || searchType === 'mixsearch') return;
     setLoading(true);
 
     try {
@@ -94,7 +135,7 @@ function App() {
   };
 
   const showLoadMoreButton = () => {
-    if (searchType === 'googleCustom') return false;
+    if (searchType === 'googleCustom' || searchType === 'mixsearch') return false;
     if (searchType === 'youtube') return !!nextPageToken;
     return results.length < totalResults;
   };

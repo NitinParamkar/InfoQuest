@@ -6,7 +6,7 @@ const SearchBar = ({ onSearch, onTypeChange }) => {
   const [searchType, setSearchType] = useState('youtube');
 
   const handleSearch = () => {
-    onSearch(term, searchType);
+    onSearch(term);
   };
 
   const handleTypeChange = (e) => {
@@ -28,6 +28,7 @@ const SearchBar = ({ onSearch, onTypeChange }) => {
         <option value="articles">Articles & Blogs</option>
         <option value="academic">Academic Papers</option>
         <option value="googleCustom">Google Search</option>
+        <option value="mixsearch">Mix Search</option>
       </select>
       <button onClick={handleSearch}>Search</button>
     </div>
