@@ -78,6 +78,12 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
     }
   };
 
+  // Move getVideoId function inside the component
+  const getVideoId = (url) => {
+    const urlParams = new URLSearchParams(new URL(url).search);
+    return urlParams.get('v');
+  };
+
   if (searchType === 'googleCustom') {
     return <GoogleCustomSearch searchTerm={searchTerm} />;
   }
@@ -107,11 +113,6 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
       )}
     </div>
   );
-};
-
-const getVideoId = (url) => {
-  const urlParams = new URLSearchParams(new URL(url).search);
-  return urlParams.get('v');
 };
 
 export default ResultsList;

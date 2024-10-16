@@ -13,7 +13,7 @@ export const fetchYouTubeVideos = async (searchTerm, pageToken = '') => {
         params: {
           q: searchTerm,
           part: 'snippet',
-          maxResults: 4,
+          maxResults: 10,
           pageToken,
           type: 'video',
           key: YOUTUBE_API_KEY,
@@ -70,7 +70,8 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
         keywords: searchTerm,
         languages: 'en',
         offset, 
-        limit: 4, 
+        limit: 12, 
+        sort: 'published_desc',
       },
     });
 
@@ -89,12 +90,13 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
         published_at: article.published_at,
       }));
 
+      const sortedArticles = sortArticlesByRelevance(articles, searchTerm);
+
       return {
-        articles,
+        articles: sortedArticles,
         total: response.data.pagination.total, 
       };
     } else {
-     
       console.warn('No articles found for the search term:', searchTerm);
       return {
         articles: [],
@@ -107,6 +109,30 @@ export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
     throw error;
   }
 };
+
+function sortArticlesByRelevance(articles, searchTerm) {
+  const searchTerms = searchTerm.toLowerCase().split(' ');
+  
+  return articles.sort((a, b) => {
+    const scoreA = calculateRelevanceScore(a, searchTerms);
+    const scoreB = calculateRelevanceScore(b, searchTerms);
+    return scoreB - scoreA;
+  });
+}
+
+// Helper function to calculate relevance score
+function calculateRelevanceScore(article, searchTerms) {
+  let score = 0;
+  const title = article.title.toLowerCase();
+  const description = article.description.toLowerCase();
+
+  searchTerms.forEach(term => {
+    if (title.includes(term)) score += 2;
+    if (description.includes(term)) score += 1;
+  });
+
+  return score;
+}
 
 // Fetch academic papers (Placeholder)
 export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 4) => {
