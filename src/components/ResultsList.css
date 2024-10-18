@@ -1,10 +1,49 @@
 .results-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
+/* Default for mobile: 1 card per row */
+@media screen and (min-width: 320px) {
+  .results-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Small tablets: 2 cards per row */
+@media screen and (min-width: 600px) {
+  .results-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large tablets: 3 cards per row */
+@media screen and (min-width: 900px) {
+  .results-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Laptops and desktops: 4 cards per row */
+@media screen and (min-width: 1200px) {
+  .results-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Ensure full width for larger screens */
+@media screen and (min-width: 1400px) {
+  .results-list {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+/* Rest of your existing styles */
 .result-item {
   background-color: #fff;
   border-radius: 10px;
@@ -15,6 +54,8 @@
   flex-direction: column;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .result-item:hover {

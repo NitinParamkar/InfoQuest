@@ -90,11 +90,9 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
 
   return (
     <div className="results-list">
-      {sortedResults.length === 0 ? (
-        <p>No results found</p>      
-      ) : (
+      {
         sortedResults.map((result, index) => renderResultItem(result, index))
-      )}
+      }
       {selectedVideo && (
         <div className="modal">
           <div className="modal-content">
