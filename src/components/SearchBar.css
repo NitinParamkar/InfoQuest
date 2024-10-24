@@ -1,4 +1,4 @@
-/* src/components/SearchBar.css */
+
 .search-bar {
   display: flex;
   flex-wrap: wrap;
@@ -75,7 +75,7 @@
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive styles */
+
 @media screen and (max-width: 768px) {
   .search-bar {
     flex-direction: column;

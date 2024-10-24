@@ -1,10 +1,10 @@
-// src/services/api.js
+
 import axios from 'axios';
 
 const MEDIASTACK_API_KEY = process.env.REACT_APP_MEDIASTACK_API_KEY;
 const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
-// Fetch YouTube videos
+
 export const fetchYouTubeVideos = async (searchTerm, pageToken = '') => {
   try {
     const searchResponse = await axios.get(
@@ -60,10 +60,10 @@ export const fetchYouTubeVideos = async (searchTerm, pageToken = '') => {
   }
 };
 
-// Fetch articles and blogs from Mediastack API
+
 export const fetchArticlesAndBlogs = async (searchTerm, offset = 0) => {
   try {
-    // Make API call to Mediastack
+  
     const response = await axios.get('https://api.mediastack.com/v1/news', {
       params: {
         access_key: MEDIASTACK_API_KEY, 
@@ -120,7 +120,7 @@ function sortArticlesByRelevance(articles, searchTerm) {
   });
 }
 
-// Helper function to calculate relevance score
+
 function calculateRelevanceScore(article, searchTerms) {
   let score = 0;
   const title = article.title.toLowerCase();
@@ -134,8 +134,8 @@ function calculateRelevanceScore(article, searchTerms) {
   return score;
 }
 
-// Fetch academic papers (Placeholder)
-export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 4) => {
+
+export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 10) => {
   try {
     const response = await axios.get('https://export.arxiv.org/api/query', {
       params: {
@@ -147,7 +147,7 @@ export const fetchAcademicPapers = async (searchTerm, start = 0, maxResults = 4)
       }
     });
 
-    // Parse the XML response
+
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(response.data, "text/xml");
 

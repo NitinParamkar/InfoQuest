@@ -26,17 +26,15 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
     return text;
   };
 
-  // Helper function to calculate the score for YouTube results
   const calculateScore = (views, likes) => {
     return 0.5 * views + 0.5 * likes;
   };
 
-  // Sort results by the calculated score for YouTube results and mix other results
   const sortedResults = results.slice().sort((a, b) => {
     if (a.type === 'youtube' && b.type === 'youtube') {
       const scoreA = calculateScore(a.views, a.likes);
       const scoreB = calculateScore(b.views, b.likes);
-      return scoreB - scoreA; // Sort in descending order of score
+      return scoreB - scoreA; 
     }
     return 0; 
   });
@@ -78,7 +76,7 @@ const ResultsList = ({ results, searchType, searchTerm }) => {
     }
   };
 
-  // Move getVideoId function inside the component
+ 
   const getVideoId = (url) => {
     const urlParams = new URLSearchParams(new URL(url).search);
     return urlParams.get('v');

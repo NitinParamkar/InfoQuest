@@ -7,35 +7,35 @@
   box-sizing: border-box;
 }
 
-/* Default for mobile: 1 card per row */
+
 @media screen and (min-width: 320px) {
   .results-list {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
-/* Small tablets: 2 cards per row */
+
 @media screen and (min-width: 600px) {
   .results-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Large tablets: 3 cards per row */
+
 @media screen and (min-width: 900px) {
   .results-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Laptops and desktops: 4 cards per row */
+
 @media screen and (min-width: 1200px) {
   .results-list {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Ensure full width for larger screens */
+
 @media screen and (min-width: 1400px) {
   .results-list {
     padding-left: 40px;
@@ -43,7 +43,7 @@
   }
 }
 
-/* Rest of your existing styles */
+
 .result-item {
   background-color: #fff;
   border-radius: 10px;
@@ -111,7 +111,7 @@
   color: #888;
 }
 
-/* YouTube card specific styles */
+
 .result-item.youtube {
   background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
   border: none;
@@ -245,7 +245,7 @@
 }
 
 .result-item.article:hover::after {
-  border-color: #22c55e;  /* Bright green */
+  border-color: #22c55e; 
   top: -3px;
   left: -3px;
   right: -3px;
@@ -264,18 +264,18 @@
 }
 
 .result-item.article .title {
-  color: #15803d;  /* Darker green for better readability */
+  color: #15803d;  
   font-weight: bold;
   transition: color 0.3s ease;
   margin: 15px 15px 10px;
 }
 
 .result-item.article:hover .title {
-  color: #22c55e;  /* Brighter green on hover */
+  color: #22c55e;  
 }
 
 .result-item.article .content {
-  color: #374151;  /* Dark gray for content */
+  color: #374151; 
   line-height: 1.6;
   margin: 10px 15px;
   font-size: 0.95em;
@@ -285,7 +285,7 @@
 .result-item.article .published {
   display: inline-block;
   margin: 5px 15px;
-  color: #6b7280;  /* Medium gray for metadata */
+  color: #6b7280;  
   font-size: 0.85em;
   transition: color 0.3s ease;
 }
@@ -302,7 +302,108 @@
 
 .result-item.article:hover .source,
 .result-item.article:hover .published {
-  color: #15803d;  /* Darker green on hover for better contrast */
+  color: #15803d; 
+}
+
+.result-item.academic {
+  background: linear-gradient(135deg, #f5f7fa 0%, #fff7e6 100%);
+  border: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 15px;
+}
+
+.result-item.academic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.3) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.result-item.academic:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(245, 158, 11, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.result-item.academic:hover::before {
+  opacity: 1;
+}
+
+.result-item.academic::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.result-item.academic:hover::after {
+  border-color: #f59e0b;  
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+}
+
+.result-item.academic .title {
+  color: #b45309;  
+  font-weight: bold;
+  transition: color 0.3s ease;
+  margin: 15px 15px 10px;
+}
+
+.result-item.academic:hover .title {
+  color: #f59e0b;  
+}
+
+.result-item.academic .content {
+  color: #374151;  
+  line-height: 1.6;
+  margin: 10px 15px;
+  font-size: 0.95em;
+}
+
+.result-item.academic .authors {
+  color: #78350f;  
+  margin: 5px 15px;
+  font-size: 0.9em;
+  transition: color 0.3s ease;
+}
+
+.result-item.academic:hover .authors {
+  color: #92400e;  
+}
+
+.result-item.academic .authors::before {
+  content: '👥 ';
+  margin-right: 5px;
+}
+
+.result-item.academic .published {
+  display: inline-block;
+  margin: 5px 15px;
+  color: #6b7280;  
+  font-size: 0.85em;
+  transition: color 0.3s ease;
+}
+
+.result-item.academic .published::before {
+  content: '📚 ';
+  margin-right: 5px;
+}
+
+.result-item.academic:hover .published {
+  color: #92400e;  
 }
 
 .modal {

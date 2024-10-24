@@ -10,7 +10,7 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
   const prevSearchTermRef = useRef('');
   const prevTriggerSearchRef = useRef(false);
 
-  // Load Google Custom Search script
+ 
   useEffect(() => {
     const loadGoogleSearchScript = () => {
       const script = document.createElement('script');
@@ -25,7 +25,7 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
       document.head.appendChild(script);
     };
 
-    // Fallback: Check every 500ms if google.search is ready
+   
     const checkGoogleSearchReady = () => {
       const interval = setInterval(() => {
         if (window.google && window.google.search) {
@@ -45,7 +45,7 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
     }
   }, []);
 
-  // Initialize the search element after script is loaded
+
   useEffect(() => {
     if (isScriptLoaded) {
       window.google.search.cse.element.render({
@@ -56,7 +56,7 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
     }
   }, [isScriptLoaded, searchKey]);
 
-  // Trigger search execution when searchTerm or triggerSearch changes
+
   useEffect(() => {
     const executeSearch = () => {
       if (isScriptLoaded && searchTerm && triggerSearch) {
@@ -84,10 +84,8 @@ const GoogleCustomSearch = ({ searchTerm, triggerSearch }) => {
 
   return (
     <div>
-      {/* Loading message while the script is loading */}
       {isLoading && <div>Please wait while the search engine is loading...</div>}
 
-      {/* Render search results panel */}
       {!isLoading && (
         <div className={`sliding-panel ${isPanelOpen ? 'open' : ''}`}>
           <div className="sliding-panel-content">
