@@ -142,7 +142,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Search App</h1>
+      <h1>InfoQuest</h1>
       <SearchBar onSearch={handleSearch} onTypeChange={setSearchType} />
       {loading && <p className="loading">Loading...</p>}
       {error && (
