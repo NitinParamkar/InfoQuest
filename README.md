@@ -3,13 +3,13 @@
 ### Step 1: Clone the repository
 
 ```bash
-git clone https://github.com/NitinParamkar/Multisearch-Website.git
+git clone https://github.com/NitinParamkar/InfoQuest.git
 ```
 
 ### Step 2: Navigate to the project folder
 
 ```bash
-cd Multisearch-Website
+cd InfoQuset
 ```
 
 ### Step 3: Install dependencies
