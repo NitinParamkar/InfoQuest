@@ -34,6 +34,7 @@ npm start
 ```
 
 ### Explore diverse content from YouTube, blogs, articles, and academic papers with an intuitive search engine.
-[click here](https://main--multisearch-web.netlify.app/) to visit Multisearch-website
+[click here](https://multisearch-web.netlify.app/) to visit InfoQuest website
+
 
 
